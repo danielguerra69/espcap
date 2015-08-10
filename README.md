@@ -31,10 +31,10 @@ espcap.py [--dir=input_directory] [--node=elasticsearch_host]"
           [--help]"
           [--list-interfaces]"
 
-Example command line option combinations:"
-espcap.py --d=/home/pcap_direcory --node=localhost:9200"
-espcap.py --file=./pcap_file --node=localhost:9200"
-espcap.py --nic=eth0 --node=localhost:9200 --bpf="tcp port 80"
+Example command line option combinations:
+espcap.py --d=/home/pcap_direcory --node=localhost:9200
+espcap.py --file=./pcap_file --node=localhost:9200
+espcap.py --nic=eth0 --node=localhost:9200 --bpf="tcp port 80
 espcap.py --nic=en0 --node=localhost:9200 --bpf="udp port 53" --count=100
 </pre>
 Note that each of these modes is mutually exclusive. If you try to run espcap.py
