@@ -53,7 +53,7 @@ def main():
         usage()
 
     try:
-        opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["help","dir=","file=","nic=","node=","bpf=","list-nics"])
+        opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["help","dir=","file=","nic=","node=","bpf=","list-interfaces"])
     except getopt.GetoptError as error:
         print str(error)
         usage()
