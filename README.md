@@ -7,8 +7,8 @@ to parse any protocol.
 
 ## Requirements
 
-pyshark and Elasticsearch client packages both of which can be obtained using pip 
-as follows:
+To run escap you need to install the pyshark and Elasticsearch client packages 
+both of which can be obtained using pip as follows:
 <pre>
 pip install elasticsearch
 pip install pyshark
@@ -22,7 +22,7 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 
 ## Getting Started
 
-You run espcap.py as root. If you supply the -h or --help flags on the command line
+You run espcap.py as root. If you supply the <tt>-h</tt> or <tt>--help</tt> flags on the command line
 you'll get the information on the most useful ways to run espcap.py:
 <pre>
 espcap.py [--dir=input_directory] [--node=elasticsearch_host]"
@@ -34,8 +34,8 @@ espcap.py [--dir=input_directory] [--node=elasticsearch_host]"
 Example command line option combinations:"
 espcap.py --d=/home/pcap_direcory --node=localhost:9200"
 espcap.py --file=./pcap_file --node=localhost:9200"
-espcap.py --nic=eth0 --node=localhost:9200 --bpf=\"tcp port 80\""
-espcap.py --nic=en0 --node=localhost:9200 --bpf=\"udp port 53\" --count=100"
+espcap.py --nic=eth0 --node=localhost:9200 --bpf="tcp port 80"
+espcap.py --nic=en0 --node=localhost:9200 --bpf="udp port 53" --count=100
 </pre>
 Note that each of these modes is mutually exclusive. If you try to run espcap.py
 in more than one mode you'll get an error message.
@@ -53,22 +53,22 @@ session.
 ## Packet Indexing
 
 When indexing packet captures into Elasticsearch, an new index is created for each 
-day. The index naming format is packets-yyyy-mm-dd. The date is UTC derived from 
+day. The index naming format is <i>packets-yyyy-mm-dd</i>. The date is UTC derived from 
 the packet sniff timestamp obtained from pyshark either for live captures or the
 sniff timestamp read from pcap files. Each index has two types, one for live capture 
-"pcap_live" and file capture "pcap_file". Both types are dynamically mapped by
+<i>pcap_live</i> and file capture <i>pcap_file</i>. Both types are dynamically mapped by
 Elasticsearch.
 
 ### pcap_file type fields
-
+<pre>
 file_name       Name of the pcap file from whence the packets were read
 file_date_utc   Creation date UTC when the pcap file was created
 sniff_date_utc  Date UTC when the packet was read off the wire
 sniff_timestamp Time in milliseconds after the Epoch whne the packet was read
 protocol        The highest level protocol
 layers          Dictionary containing the packet contents
-
+</pre>
 ### pcap_live type fields
 
-The "pcap_live" type is comprised of the same fields except the "file_name" and
-"file_date_utc" fields.
+The <i>pcap_live</i> type is comprised of the same fields except the <i>file_name</i> and
+<i>file_date_utc</i> fields.
