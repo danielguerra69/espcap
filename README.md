@@ -12,7 +12,7 @@ as follows:
 <pre>
 pip install elasticsearch
 pip install pyshark
-<pre>
+</pre>
 ## Recommendations
 
 It is highly recommended, although not required, that you use the Anaconda Python 
