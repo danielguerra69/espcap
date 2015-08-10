@@ -25,11 +25,11 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 You run espcap.py as root. If you supply the <tt>-h</tt> or <tt>--help</tt> flags on the command line
 you'll get the information on the most useful ways to run espcap.py:
 <pre>
-espcap.py [--dir=input_directory] [--node=elasticsearch_host]"
-          [--file=input_file] [--node=elasticsearch_host]"
-          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets]"
-          [--help]"
-          [--list-interfaces]"
+espcap.py [--dir=input_directory] [--node=elasticsearch_host]
+          [--file=input_file] [--node=elasticsearch_host]
+          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets]
+          [--help]
+          [--list-interfaces]
 
 Example command line option combinations:
 espcap.py --d=/home/pcap_direcory --node=localhost:9200
