@@ -51,7 +51,6 @@ def interrupt_handler(signum, frame):
 def main():
     if len(sys.argv) == 1:
         usage()
-
     try:
         opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["dir=","file=","nic=","node=","bpf=","count=","help","list-interfaces"])
     except getopt.GetoptError as error:
