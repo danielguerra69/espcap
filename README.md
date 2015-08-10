@@ -2,7 +2,7 @@
 
 espcap is program that uses pyshark to capture packets from a pcap file or live
 from a network interface and index them with Elasticsearch.  Since espcap uses
-pyshark - which provides a wrapper API tshark - it can use wireshark dissectors
+pyshark - which provides a wrapper API to tshark - it can use wireshark dissectors
 to parse any protocol.
 
 ## Requirements
