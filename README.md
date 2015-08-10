@@ -9,10 +9,10 @@ to parse any protocol.
 
 pyshark and Elasticsearch client packages both of which can be obtained using pip 
 as follows:
-
+<pre>
 pip install elasticsearch
 pip install pyshark
-
+<pre>
 ## Recommendations
 
 It is highly recommended, although not required, that you use the Anaconda Python 
@@ -24,7 +24,7 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 
 You run espcap.py as root. If you supply the -h or --help flags on the command line
 you'll get the information on the most useful ways to run espcap.py:
-
+<pre>
 espcap.py [--dir=input_directory] [--node=elasticsearch_host]"
           [--file=input_file] [--node=elasticsearch_host]"
           [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets]"
@@ -36,16 +36,16 @@ espcap.py --d=/home/pcap_direcory --node=localhost:9200"
 espcap.py --file=./pcap_file --node=localhost:9200"
 espcap.py --nic=eth0 --node=localhost:9200 --bpf=\"tcp port 80\""
 espcap.py --nic=en0 --node=localhost:9200 --bpf=\"udp port 53\" --count=100"
-
+</pre>
 Note that each of these modes is mutually exclusive. If you try to run espcap.py
 in more than one mode you'll get an error message.
 
 You can try espcap.py in file mode using the pcap files contained in the test
 directory. To do that run espcap.py as follows (assuming you want to just dump
 the packets to stdout):
-
+<pre>
 espcap.py --dir=./test
-
+</pre>
 When running in live capture mode you can set a maximum packet count after which
 the capture will stop or you can just hit ctrl-c to stop a continuous capture
 session.
@@ -61,8 +61,6 @@ Elasticsearch.
 
 ### pcap_file type fields
 
-field name      contents description
-----------      --------------------
 file_name       Name of the pcap file from whence the packets were read
 file_date_utc   Creation date UTC when the pcap file was created
 sniff_date_utc  Date UTC when the packet was read off the wire
