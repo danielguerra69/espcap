@@ -13,6 +13,17 @@ both of which can be obtained using pip as follows:
 pip install elasticsearch
 pip install pyshark
 </pre>
+
+You will also need wireshark and libpcap, if you don't have them already. Then to
+make sure pyshark can find your tshark binary, open the pyshark config.ini file 
+then set the <i>tshark_path</i> field to point tshark. Here is an example from a 
+Mac OS system that is pretty typical:
+<pre>
+tshark_path = /usr/local/bin/tshark
+</pre>
+Pyshark is usually located in the site-packages/pyshark directory of your Python 
+installation. 
+ 
 ## Recommendations
 
 It is highly recommended, although not required, that you use the Anaconda Python 
