@@ -61,14 +61,21 @@ Elasticsearch.
 
 ### pcap_file type fields
 <pre>
-file_name       Name of the pcap file from whence the packets were read
-file_date_utc   Creation date UTC when the pcap file was created
-sniff_date_utc  Date UTC when the packet was read off the wire
-sniff_timestamp Time in milliseconds after the Epoch whne the packet was read
-protocol        The highest level protocol
-layers          Dictionary containing the packet contents
+file_name           Name of the pcap file from whence the packets were read
+file_date_utc       Creation date UTC when the pcap file was created
+sniff_date_utc      Date UTC when the packet was read off the wire
+sniff_timestamp     Time in milliseconds after the Epoch whne the packet was read
+protocol            The highest level protocol
+layers              Dictionary containing the packet contents
 </pre>
 ### pcap_live type fields
 
 The <i>pcap_live</i> type is comprised of the same fields except the <i>file_name</i> and
 <i>file_date_utc</i> fields.
+
+## Known Issues
+<ol>
+<li> When doing live capture to Elasticsearch and specifying a maximum packet count, 
+the number of packets ingested is roughly 3x what was specified in the count from the
+command line. Note that when dumping packets to stdout, this not the case.</li>
+</ol>
