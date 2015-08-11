@@ -75,7 +75,7 @@ def capture(nic, bpf, node, count):
 
         # Dump or index packets based on whether an Elasticsearch node is available
         if node == None:
-            dump_packets(capture, sniff_date_utc, counr)
+            dump_packets(capture, sniff_date_utc, count)
         else:
             helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=2000, raise_on_error=True)
 
