@@ -8,7 +8,7 @@ from packet_utils import get_layers
 
 # Index packets in Elasticsearch
 def index_packets(capture, sniff_date_utc, count):
-    # Capture packets up to count, if count == 0 then there it no limit
+    # Capture packets up to count, if count == 0 then there is no limit
     for packet in capture.sniff_continuously(packet_count=count):
         # Get the packet layers dictionary
         layers = get_layers(packet)
