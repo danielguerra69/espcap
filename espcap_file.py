@@ -5,61 +5,50 @@ from elasticsearch import helpers
 import pyshark
 
 from packet_utils import get_protocol
+from packet_utils import get_layers
 
 # Index packets in Elasticsearch
 def index_packets(capture, pcap_file, file_date_utc):
     for packet in capture:
-        # Build packet layers
-        layers = {}
-        for j in range(len(packet.layers)):
-            layers[packet.layers[j].layer_name] = packet.layers[j]._all_fields
-            # Set the envelope layer which is the protocol layer that contains this
-            # particular wireshark layer.
-            if j > 0:
-                layers[packet.layers[j].layer_name]["envelope"] = packet.layers[j-1].layer_name
+        # Get the packet layers dictionary
+        layers = get_layers(packet)
 
-            # Set the bulk ingestion action to index packet. Note the sniff_timestamp
-            # field is only used for sorting so the time zone, current or otherwise,
-            # doesn't matter.
-            sniff_timestamp = float(packet.sniff_timestamp)
-            action = {
-                "_op_type" : "index",
-                "_index" : "packets-"+datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d"),
-                "_type" : "pcap_file",
-                "_source" : {
-                    "file_name" : pcap_file,
-                    "file_date_utc" : file_date_utc.strftime("%Y-%m-%d %H:%M:%S"),
-                    "sniff_date_utc" : datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d %H:%M:%S"),
-                    "sniff_timestamp" : sniff_timestamp,
-                    "protocol" : get_protocol(packet),
-                    "layers" : layers
-                }
+        # Set the bulk ingestion action to index packet. Note the sniff_timestamp
+        # field is only used for sorting so the time zone, current or otherwise,
+        # doesn't matter.
+        sniff_timestamp = float(packet.sniff_timestamp)
+        action = {
+            "_op_type" : "index",
+            "_index" : "packets-"+datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d"),
+            "_type" : "pcap_file",
+            "_source" : {
+                "file_name" : pcap_file,
+                "file_date_utc" : file_date_utc.strftime("%Y-%m-%d %H:%M:%S"),
+                "sniff_date_utc" : datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d %H:%M:%S"),
+                "sniff_timestamp" : sniff_timestamp,
+                "protocol" : get_protocol(packet),
+                "layers" : layers
             }
-            yield action
+        }
+        yield action
 
 # Dump raw packets to stdout
 def dump_packets(capture, file_date_utc):
     pkt_no = 1
     for packet in capture:
-        # Build packet layers
-        layers = {}
-        for j in range(len(packet.layers)):
-            layers[packet.layers[j].layer_name] = packet.layers[j]._all_fields
-            # Set the envelope layer which is the protocol layer that contains this
-            # particular wireshark layer.
-            if j > 0:
-                layers[packet.layers[j].layer_name]["envelope"] = packet.layers[j-1].layer_name
+        # Get the packet layers dictionary
+        layers = get_layers(packet)
 
-            # Dump raw packet data to stdout
-            sniff_timestamp = float(packet.sniff_timestamp)
-            print "packet no.", pkt_no, "-", get_protocol(packet)
-            print "* file date UTC   -", file_date_utc.strftime("%Y-%m-%d %H:%M:%S")
-            print "* sniff date UTC  -", datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d %H:%M:%S")
-            print "* sniff timestamp -", sniff_timestamp
-            print "* layers"
-            for key in layers:
-                print "\t", key, layers[key]
-                print
+        # Dump raw packet data to stdout
+        sniff_timestamp = float(packet.sniff_timestamp)
+        print "packet no.", pkt_no, "-", get_protocol(packet)
+        print "* file date UTC   -", file_date_utc.strftime("%Y-%m-%d %H:%M:%S")
+        print "* sniff date UTC  -", datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d %H:%M:%S")
+        print "* sniff timestamp -", sniff_timestamp
+        print "* layers"
+        for key in layers:
+            print "\t", key, layers[key]
+            print
         pkt_no += 1
 
 # Main capture function
