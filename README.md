@@ -82,10 +82,3 @@ layers              Dictionary containing the packet contents
 
 The <i>pcap_live</i> type is comprised of the same fields except the <i>file_name</i> and
 <i>file_date_utc</i> fields.
-
-## Known Issues
-<ol>
-<li> When doing live capture to Elasticsearch and specifying a maximum packet count, 
-the number of packets ingested is roughly 3x what was specified in the count from the
-command line. Note that when dumping packets to stdout, this not the case.</li>
-</ol>
