@@ -51,11 +51,10 @@ espcap.py --nic=en0 --node=localhost:9200 --bpf="udp port 53" --count=100
 Note that each of these modes is mutually exclusive. If you try to run espcap.py
 in more than one mode you'll get an error message.
 
-You can try espcap.py in file mode using the pcap files contained in the test
-directory. To do that run espcap.py as follows (assuming you want to just dump
-the packets to stdout):
+You can try espcap.py in file mode using the pcap files contained in test_pcaps. To do 
+that run espcap.py as follows (assuming you want to just dump the packets to stdout):
 <pre>
-espcap.py --dir=./test
+espcap.py --dir=./test_pcaps
 </pre>
 When running in live capture mode you can set a maximum packet count after which
 the capture will stop or you can just hit ctrl-c to stop a continuous capture
