@@ -3,8 +3,6 @@ import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import pyshark
-
-from packet_utils import get_protocol
 from packet_utils import get_layers
 
 # Index packets in Elasticsearch
@@ -26,7 +24,6 @@ def index_packets(capture, pcap_file, file_date_utc):
                 "file_date_utc" : file_date_utc.strftime("%Y-%m-%d %H:%M:%S"),
                 "sniff_date_utc" : datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d %H:%M:%S"),
                 "sniff_timestamp" : sniff_timestamp,
-                "protocol" : get_protocol(packet),
                 "layers" : layers
             }
         }
@@ -41,7 +38,7 @@ def dump_packets(capture, file_date_utc):
 
         # Dump raw packet data to stdout
         sniff_timestamp = float(packet.sniff_timestamp)
-        print "packet no.", pkt_no, "-", get_protocol(packet)
+        print "packet no.", pkt_no
         print "* file date UTC   -", file_date_utc.strftime("%Y-%m-%d %H:%M:%S")
         print "* sniff date UTC  -", datetime.datetime.utcfromtimestamp(sniff_timestamp).strftime("%Y-%m-%d %H:%M:%S")
         print "* sniff timestamp -", sniff_timestamp

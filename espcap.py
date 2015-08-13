@@ -6,7 +6,6 @@ import getopt
 import signal
 import espcap_file
 import espcap_live
-
 from packet_utils import list_interfaces
 
 def command_line_options():
