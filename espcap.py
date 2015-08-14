@@ -58,7 +58,6 @@ def main():
         usage()
         sys.exit(2)
 
-    espcap_utils.load_config()
     pcap_files = []
     pcap_dir = None
     pcap_file = None
@@ -96,15 +95,18 @@ def main():
         else:
             doh("Unhandled option "+opt)
 
-    # Enables interrupting of continuous live capture
-    signal.signal(signal.SIGINT, interrupt_handler)
-
     # Bail if no nic or input file has been specified
     if nic == None and pcap_dir == None and pcap_file == None:
         fine_print()
 
+    # Load supported protocols
+    espcap_utils.load_config()
+
+    # Enables interrupting of continuous live capture
+    signal.signal(signal.SIGINT, interrupt_handler)
+
     # Handle multiple pcap files in the given directory
-    elif pcap_dir != None:
+    if pcap_dir != None:
         files = os.listdir(pcap_dir)
         files.sort()
         for file in files:
