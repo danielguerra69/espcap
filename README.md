@@ -237,8 +237,8 @@ layer.  Below is an example of an HTTP packet that has been truncated in the pla
 The convention for accessing protocol fields in the JSON layers structure is:
 
 <pre>
-layers.<protocol type>.<field name>
-</pre
+layers.protocol-type.field-name
+</pre>
 
 Here are some examples of how to reference specific layer fields taken from the packet
 JSON shown above:
@@ -251,7 +251,6 @@ layers.transport.tcp.dstport     Receiver TCP port
 layers.application.http.chat     HTTP response
 </pre>
 
-Note that some layer protocols span two sections. In the above example, the TCP segment
-has a <i>data</i> section associated and the HTTP response has a <i>media</i> section. Extra
-sections like these can be associated with their protocol sections by checking the <i>envelope</i>
-field contents.
+Note that some layer protocols span two sections. In the above example, the TCP segment has a <i>data</i> 
+section associated and the HTTP response has a <i>media</i> section. Extra sections like these can be 
+associated with their protocol sections by checking the <i>envelope</i> field contents.
