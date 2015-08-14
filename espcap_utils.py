@@ -1,7 +1,6 @@
 import os
 import ConfigParser
 
-tshark = ""
 app_protocols = {}
 
 # Get application level protocol
@@ -37,7 +36,7 @@ def get_layers(packet):
 
 # Returns list of network interfaces (nic)
 def list_interfaces():
-    proc = os.popen(tshark+" -D")
+    proc = os.popen("tshark -D")
     tshark_out = proc.read()
     interfaces = tshark_out.splitlines()
     for i in range(len(interfaces)):
@@ -46,11 +45,6 @@ def list_interfaces():
 
 # Get tshark path and supported application protocols
 def load_config():
-    global tshark
-    config = ConfigParser.ConfigParser()
-    config.readfp(open("conf/espcap.conf"))
-    tshark = config.get("paths", "tshark")
-
     global app_protocols
     fp = open("conf/protocols.list")
     protocols = fp.readlines()
