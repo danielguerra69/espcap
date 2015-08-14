@@ -14,10 +14,10 @@ pip install elasticsearch
 pip install pyshark
 </pre>
 
-You will also need wireshark and libpcap, if you don't have them already. Then to
-make sure pyshark can find your tshark binary, open the pyshark config.ini file 
-then set the <i>tshark_path</i> field to point tshark. Here is an example from a 
-Mac OS system that is pretty typical:
+You will also need wireshark and libpcap, if you don't have them already. To make 
+sure pyshark can find your tshark binary, open the pyshark config.ini file then 
+set the <i>tshark_path</i> field to point tshark. Here is an example from a Mac 
+OS system that is pretty typical:
 <pre>
 tshark_path = /usr/local/bin/tshark
 </pre>
