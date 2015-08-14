@@ -4,9 +4,10 @@ import os
 import sys
 import getopt
 import signal
-import espcap_file
-import espcap_live
+
+from capture import espcap_file, espcap_live
 import espcap_utils
+
 
 def command_line_options():
     print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host]"
@@ -58,7 +59,6 @@ def main():
         sys.exit(2)
 
     espcap_utils.load_config()
-
     pcap_files = []
     pcap_dir = None
     pcap_file = None
@@ -96,7 +96,7 @@ def main():
         else:
             doh("Unhandled option "+opt)
 
-    # Handle Ctrl-C gracefully
+    # Enables interrupting of continuous live capture
     signal.signal(signal.SIGINT, interrupt_handler)
 
     # Bail if no nic or input file has been specified
