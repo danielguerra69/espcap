@@ -6,7 +6,7 @@ import getopt
 import signal
 import espcap_file
 import espcap_live
-from packet_utils import list_interfaces
+import espcap_utils
 
 def command_line_options():
     print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host]"
@@ -57,6 +57,8 @@ def main():
         usage()
         sys.exit(2)
 
+    espcap_utils.load_config()
+
     pcap_files = []
     pcap_dir = None
     pcap_file = None
@@ -89,7 +91,7 @@ def main():
         elif opt == "--count":
             count = int(arg)
         elif opt == "--list-interfaces":
-            list_interfaces()
+            espcap_utils.list_interfaces()
             sys.exit()
         else:
             doh("Unhandled option "+opt)
