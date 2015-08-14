@@ -70,7 +70,7 @@ sniff timestamp read from pcap files. Each index has two types, one for live cap
 <i>pcap_live</i> and file capture <i>pcap_file</i>. Both types are dynamically mapped by
 Elasticsearch.
 
-Index ids are automatically assigned by Elasticsearch
+Index IDs are automatically assigned by Elasticsearch
 
 ### pcap_file type fields
 <pre>
@@ -255,3 +255,10 @@ layers.application.http.chat     HTTP response
 Note that some layer protocols span two sections. In the above example, the TCP segment has a <i>data</i> 
 section associated and the HTTP response has a <i>media</i> section. Extra sections like these can be 
 associated with their protocol sections by checking the <i>envelope</i> field contents.
+
+## Known Issues
+
+<ol>
+<li>When running as user other than root packet capture is sometimes interrupted with the message -
+ error:  'NoneType' object has no attribute 'add_reader'.  Running as root takes care of this issue.</li>
+</ol>
