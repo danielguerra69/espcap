@@ -49,8 +49,7 @@ def load_config():
     global tshark
     config = ConfigParser.ConfigParser()
     config.readfp(open("conf/espcap.conf"))
-    path = config.get("paths", "tshark")
-    tshark = path+"/tshark"
+    tshark = config.get("paths", "tshark")
 
     global app_protocols
     fp = open("conf/protocols.list")
