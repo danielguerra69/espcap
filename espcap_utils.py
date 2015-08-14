@@ -16,8 +16,9 @@ def get_highest_protocol(packet):
     return "wtf"
 
 # Returns a dictionary containing the packet layer data
-def get_layers(packet, highest_protocol):
+def get_layers(packet):
     npackets = len(packet.layers)
+    highest_protocol = get_highest_protocol(packet)
     layers = {}
     layers["link"] = packet.layers[0]._all_fields
     layers["network"] = packet.layers[1]._all_fields
@@ -32,7 +33,7 @@ def get_layers(packet, highest_protocol):
             elif j == 4 or j == 5:
                 layers[packet.layers[j].layer_name]["envelope"] = highest_protocol
 
-    return layers
+    return highest_protocol, layers
 
 # Returns list of network interfaces (nic)
 def list_interfaces():
