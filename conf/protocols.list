@@ -6,6 +6,13 @@
 3comxns
 6lowpan
 9p
+# _ws.expert
+# _ws.lua
+# _ws.malformed
+# _ws.number_string.decoding_error
+# _ws.short
+# _ws.type_length
+# _ws.unreassembled
 a11
 a21
 aal1
@@ -271,7 +278,10 @@ cups
 cwids
 daap
 dap
-daytime
+# data
+# data-l1-events
+# data-text-lines
+# daytime
 db-lsp
 db-lsp-disc
 dbus
@@ -799,7 +809,7 @@ mbrtu
 mbtcp
 mdshdr
 mdssvc
-# media
+media
 megaco
 memcache
 mesh
@@ -936,6 +946,7 @@ nspi
 nsrp
 ntlmssp
 ntp
+# null
 nw_mtp
 nw_serial
 oamaal
@@ -1195,7 +1206,7 @@ sebek
 secidmap
 selfm
 serialization
- ses
+ses
 sflow
 sgimount
 sgsap

@@ -2,14 +2,12 @@ import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import pyshark
-from espcap_utils import get_highest_protocol
 from espcap_utils import get_layers
 
 # Index packets in Elasticsearch
 def index_packets(capture, sniff_date_utc, count):
     for packet in capture.sniff_continuously(packet_count=count): # count == 0 means no limit
-        highest_protocol = get_highest_protocol(packet)
-        layers = get_layers(packet, highest_protocol)
+        highest_protocol, layers = get_layers(packet)
         sniff_timestamp = float(packet.sniff_timestamp) # use this field for ordering the packets in ES
         action = {
             "_op_type" : "index",
@@ -28,8 +26,7 @@ def index_packets(capture, sniff_date_utc, count):
 def dump_packets(capture, sniff_date_utc, count):
     pkt_no = 1
     for packet in capture.sniff_continuously(packet_count=count):
-        highest_protocol = get_highest_protocol(packet)
-        layers = get_layers(packet, highest_protocol)
+        highest_protocol, layers = get_layers(packet)
         sniff_timestamp = float(packet.sniff_timestamp)
         print "packet no.", pkt_no
         print "* protocol        -", highest_protocol
