@@ -11,7 +11,7 @@ def get_highest_protocol(packet):
     for i in range(3,npackets):
         if packet.layers[i].layer_name in supported_protocols:
             return packet.layers[i].layer_name
-    return "wtf"
+    return packet.layers[2].layer_name
 
 # Returns a dictionary containing the packet layer data
 def get_layers(packet):
