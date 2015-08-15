@@ -256,6 +256,42 @@ Note that some layer protocols span two sections. In the above example, the TCP 
 section associated and the HTTP response has a <i>media</i> section. Extra sections like these can be 
 associated with their protocol sections by checking the <i>envelope</i> field contents.
 
+## Protocol Support
+
+Technically epscap recognizes all the protocols supported by wureshark/tshark. However, the wireshark
+dissector set includes some strange protocols that are not really Internet protocols in the strictest
+sense, but are rather parts of other protocols. One example is <i>media</i> which is actually used to
+label an additional layer for the <i>http</i> protocol among other things. Espcap uses the protocols.list
+to help deterime the application level protocol in any given packet. This file is derived from tshark
+by running the protocols.sh script in the conf directory. To ensure that espcap has only true Internet
+protocols to choosed from, the entries in protocols.list that are not truly Internet protocols have
+been commented out. Currently the commented out protocols include the following:
+<pre>
+# _ws.expert
+# _ws.lua
+# _ws.malformed
+# _ws.number_string.decoding_error
+# _ws.short
+# _ws.type_length
+# _ws.unreassembled
+# data
+# data-l1-events
+# data-text-lines
+# media
+# null
+</pre>
+If there are any other protocols you believe should not be considered, then you can comment them out in 
+this fashion. 
+
+On the other hand If you get a little too frisky and comment out too many protocols or you just want to 
+generate a fresh list, you can run the protocols.sh script in the following manner:
+<ol>
+<li>cd to the conf directory</li>
+<li>Run the protocols.sh script which produces a clean protocol list in protocols.txt</li>
+<li>Comment out the protocols in the list above and others you don't want to consider</li>
+<li>Replace the contents of protocols.list with the contents of protocols.txt.
+</ol>
+
 ## Known Issues
 
 <ol>
