@@ -295,6 +295,6 @@ generate a fresh list, you can run the protocols.sh script in the following mann
 ## Known Issues
 
 <ol>
-<li>When running as user other than root packet capture is sometimes interrupted with the message -
- error:  'NoneType' object has no attribute 'add_reader'.  Running as root takes care of this issue.</li>
+ <li>File capture mode sometime gets this error:  'NoneType' object has no attribute 'add_reader'.  Live 
+capture does not seem to have this problem.</li>
 </ol>
