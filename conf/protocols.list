@@ -281,7 +281,7 @@ dap
 # data
 # data-l1-events
 # data-text-lines
-# daytime
+daytime
 db-lsp
 db-lsp-disc
 dbus
@@ -809,7 +809,7 @@ mbrtu
 mbtcp
 mdshdr
 mdssvc
-media
+# media
 megaco
 memcache
 mesh
