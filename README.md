@@ -35,8 +35,8 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 
 ## Getting Started
 
-You run espcap.py as root. If you supply the <tt>-h</tt> or <tt>--help</tt> flags on 
-the command line you'll get the information on the most useful ways to run espcap.py:
+You run espcap.py as root. If you supply the <tt>--help</tt> flags on the command 
+line you'll get the information on the most useful ways to run espcap.py:
 <pre>
 espcap.py [--dir=input_directory] [--node=elasticsearch_host]
           [--file=input_file] [--node=elasticsearch_host]
