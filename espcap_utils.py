@@ -6,7 +6,9 @@ supported_protocols = {}
 def get_highest_protocol(packet):
     npackets = len(packet.layers)
     global supported_protocols
-    if npackets == 3:
+    if npackets == 2:
+        return packet.layers[1].layer_name
+    elif npackets == 3:
         return packet.layers[2].layer_name
     for i in range(3,npackets):
         if packet.layers[i].layer_name in supported_protocols:
@@ -20,7 +22,8 @@ def get_layers(packet):
     layers = {}
     layers["link"] = packet.layers[0]._all_fields
     layers["network"] = packet.layers[1]._all_fields
-    layers["transport"] = packet.layers[2]._all_fields
+    if npackets == 3:
+        layers["transport"] = packet.layers[2]._all_fields
     for j in range(3,npackets):
         if packet.layers[j].layer_name == highest_protocol:
             layers["application"] = packet.layers[j]._all_fields
@@ -30,7 +33,6 @@ def get_layers(packet):
                 layers[packet.layers[j].layer_name]["envelope"] = packet.transport_layer.lower()
             elif j == 4 or j == 5:
                 layers[packet.layers[j].layer_name]["envelope"] = highest_protocol
-
     return highest_protocol, layers
 
 # Returns list of network interfaces (nic)
