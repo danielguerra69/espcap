@@ -23,7 +23,7 @@ def index_packets(capture, sniff_date_utc, count):
         yield action
 
 # Dump raw packets to stdout
-def dump_packets(capture, sniff_date_utc, count):
+def dump_packets(capture, sniff_date_utc, count): # count == 0 means no limit
     pkt_no = 1
     for packet in capture.sniff_continuously(packet_count=count):
         highest_protocol, layers = get_layers(packet)
