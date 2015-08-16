@@ -25,6 +25,7 @@ def get_layers(packet):
     if npackets == 3:
         layers["transport"] = packet.layers[2]._all_fields
     for j in range(3,npackets):
+        layers["transport"] = packet.layers[2]._all_fields
         if packet.layers[j].layer_name == highest_protocol:
             layers["application"] = packet.layers[j]._all_fields
         else:
