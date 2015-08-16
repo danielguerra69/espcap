@@ -281,9 +281,9 @@ Technically epscap recognizes all the protocols supported by wureshark/tshark. H
 dissector set includes some strange protocols that are not really Internet protocols in the strictest
 sense, but are rather parts of other protocols. One example is <i>media</i> which is actually used to
 label an additional layer for the <i>http</i> protocol among other things. Espcap uses the protocols.list
-to help deterime the application level protocol in any given packet. This file is derived from tshark
+to help determine the application level protocol in any given packet. This file is derived from tshark
 by running the protocols.sh script in the conf directory. To ensure that espcap has only true Internet
-protocols to choosed from, the entries in protocols.list that are not truly Internet protocols have
+protocols to choose from, the entries in protocols.list that are not truly Internet protocols have
 been commented out. Currently the commented out protocols include the following:
 <pre>
 # _ws.expert
