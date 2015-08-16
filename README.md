@@ -7,31 +7,45 @@ to parse any protocol.
 
 ## Requirements
 
-To run escap you need to install the pyshark and Elasticsearch client packages 
-both of which can be obtained using pip as follows:
-<pre>
-pip install elasticsearch
-pip install pyshark
-</pre>
-
-You will also need wireshark and libpcap, if you don't have them already. To make 
-sure pyshark can find your tshark binary, open the pyshark config.ini file then 
-set the <i>tshark_path</i> field to point tshark. Here is an example from a Mac 
-OS system that is pretty typical:
-<pre>
-tshark_path = /usr/local/bin/tshark
-</pre>
-Pyshark is usually located in the site-packages/pyshark directory of your Python 
-installation. 
-
-Finally, make sure that tshark is in your path.
+<ol>
+<li>tshark (included in Wireshark)</li>
+<li>pyshark</li>
+<li>Elasticsearch client for Python</li>
+</ol>
  
 ## Recommendations
 
 It is highly recommended, although not required, that you use the Anaconda Python 
-distribution by Continuum Analytcis for espcap. This distribution contains Python
+distribution by Continuum Analytics for espcap. This distribution contains Python
 2.7.10 and bundles a rich set of programming packages for analytics and machine 
 learning.  You can download Anaconda Python here: http://continuum.io/downloads.
+
+## Installation
+
+<ol>
+<li>Install Wireshark for your OS.</li>
+<li>Install pyshark and the Elasticsearch client for Python with pip:
+<pre>
+pip install pyshark
+pip install elasticsearch
+</pre>
+<li>Create the packet index template by running conf/templates.sh as follows 
+specifying the node IP address of your Elasticsearch cluster:
+<pre>
+conf/templates.sh node-ip
+</pre>
+</li>
+<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
+<li>Run espcap.py --dir=test_pcaps --node=node-ip to index some packet data in 
+Elasticsearch.
+<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
+<li>Run the packet_query.sh as follows to check that the packet data resides in your
+Elasticsearch cluster:
+<pre>
+packet_query.sh node-ip
+</pre>
+</li>
+</ol>
 
 ## Getting Started
 
@@ -68,7 +82,9 @@ day. The index naming format is <i>packets-yyyy-mm-dd</i>. The date is UTC deriv
 the packet sniff timestamp obtained from pyshark either for live captures or the
 sniff timestamp read from pcap files. Each index has two types, one for live capture 
 <i>pcap_live</i> and file capture <i>pcap_file</i>. Both types are dynamically mapped by
-Elasticsearch.
+Elasticsearch with exception of the date fields for either <i>pcap_file</i> or <i>pcap_live</i>
+types which are mapped as Elasticsearch date fields if you run the templates.sh script
+before indexing an packet data.
 
 Index IDs are automatically assigned by Elasticsearch
 
