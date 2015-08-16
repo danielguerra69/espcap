@@ -33,7 +33,7 @@ pip install elasticsearch
 specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
 cluster:
 <pre>
-conf/templates.sh node-ip
+conf/templates.sh node
 </pre>
 </li>
 <li>Set the tshark_path variable in the pyshark/config.ini file.</li>
