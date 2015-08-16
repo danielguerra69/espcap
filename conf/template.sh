@@ -5,7 +5,7 @@
 # in Elasticsearch.
 
 if [[ $# -ne 1 ]] ; then
-    echo "usage: template.sh node-ip"
+    echo "usage: template.sh node"
     exit
 fi
 
