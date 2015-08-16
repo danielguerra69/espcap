@@ -30,19 +30,22 @@ pip install pyshark
 pip install elasticsearch
 </pre>
 <li>Create the packet index template by running conf/templates.sh as follows 
-specifying the node IP address of your Elasticsearch cluster:
+specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
+cluster:
 <pre>
 conf/templates.sh node-ip
 </pre>
 </li>
 <li>Set the tshark_path variable in the pyshark/config.ini file.</li>
-<li>Run espcap.py --dir=test_pcaps --node=node-ip to index some packet data in 
-Elasticsearch.
+<li>Run espcap.py as follows to index some packet data in Elasticsearch:
+<pre>
+espcap.py --dir=test_pcaps --node=node
+</pre>
 <li>Set the tshark_path variable in the pyshark/config.ini file.</li>
 <li>Run the packet_query.sh as follows to check that the packet data resides in your
 Elasticsearch cluster:
 <pre>
-packet_query.sh node-ip
+packet_query.sh node
 </pre>
 </li>
 </ol>
