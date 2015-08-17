@@ -286,18 +286,18 @@ by running the protocols.sh script in the conf directory. To ensure that espcap 
 protocols to choose from, the entries in protocols.list that are not truly Internet protocols have
 been commented out. Currently the commented out protocols include the following:
 <pre>
-# _ws.expert
-# _ws.lua
-# _ws.malformed
-# _ws.number_string.decoding_error
-# _ws.short
-# _ws.type_length
-# _ws.unreassembled
-# data
-# data-l1-events
-# data-text-lines
-# media
-# null
+_ws.expert
+_ws.lua
+_ws.malformed
+_ws.number_string.decoding_error
+_ws.short
+_we.type_length
+_ws.unreassembled
+data
+data-l1-events
+data-text-lines
+media
+null
 </pre>
 If there are any other protocols you believe should not be considered, then you can comment them out in 
 this fashion. 
