@@ -1,4 +1,4 @@
-import datetime
+import sys
 import traceback
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers

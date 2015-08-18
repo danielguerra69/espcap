@@ -90,11 +90,11 @@ def main():
             bpf = arg
         elif opt == "--count":
             count = int(arg)
+        elif opt == "--trace":
+            trace = True
         elif opt == "--list-interfaces":
             espcap_utils.list_interfaces()
             sys.exit()
-        elif opt == "--trace":
-            debugging = True
         else:
             doh("Unhandled option "+opt)
 
@@ -113,7 +113,7 @@ def main():
         files = os.listdir(pcap_dir)
         files.sort()
         for file in files:
-            pcap_files.append(pcap_dir+"/"+file)
+            pcap_files.append(pcap_dir+file)
         espcap_file.capture(pcap_files, node, trace)
 
     # Handle only the given pcap file
