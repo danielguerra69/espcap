@@ -1,4 +1,5 @@
 import os
+import traceback
 import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
@@ -43,7 +44,7 @@ def dump_packets(capture, file_date_utc):
         pkt_no += 1
 
 # Main capture function
-def capture(pcap_files, node):
+def capture(pcap_files, node, trace):
     try:
         es = None
         if (node != None):
@@ -60,7 +61,9 @@ def capture(pcap_files, node):
             if node == None:
                 dump_packets(capture, file_date_utc)
             else:
-                helpers.bulk(es, index_packets(capture, pcap_file, file_date_utc), chunk_size=2000, raise_on_error=True)
+                helpers.bulk(es, index_packets(capture, pcap_file, file_date_utc), chunk_size=100, raise_on_error=True)
 
     except Exception as e:
         print "error: ", e
+        if trace == True:
+            traceback.print_exc(file=sys.stdout)

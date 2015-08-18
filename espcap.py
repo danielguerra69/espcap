@@ -10,9 +10,9 @@ import espcap_utils
 
 
 def command_line_options():
-    print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host]"
-    print "          [--file=pcap_file] [--node=elasticsearch_host]"
-    print "          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets]"
+    print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host] [--trace]"
+    print "          [--file=pcap_file] [--node=elasticsearch_host] [--trace]"
+    print "          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets] [--trace]"
     print "          [--help]"
     print "          [--list-interfaces]"
 
@@ -52,7 +52,7 @@ def main():
     if len(sys.argv) == 1:
         usage()
     try:
-        opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["dir=","file=","nic=","node=","bpf=","count=","help","list-interfaces"])
+        opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["trace","dir=","file=","nic=","node=","bpf=","count=","help","list-interfaces"])
     except getopt.GetoptError as error:
         print str(error)
         usage()
@@ -64,6 +64,7 @@ def main():
     nic = None
     node = None
     bpf = None
+    trace = False
     count = 0
     for opt, arg in opts:
         if opt == "--help":
@@ -92,6 +93,8 @@ def main():
         elif opt == "--list-interfaces":
             espcap_utils.list_interfaces()
             sys.exit()
+        elif opt == "--trace":
+            debugging = True
         else:
             doh("Unhandled option "+opt)
 
@@ -111,16 +114,16 @@ def main():
         files.sort()
         for file in files:
             pcap_files.append(pcap_dir+"/"+file)
-        espcap_file.capture(pcap_files, node)
+        espcap_file.capture(pcap_files, node, trace)
 
     # Handle only the given pcap file
     elif pcap_file != None:
         pcap_files.append(pcap_file)
-        espcap_file.capture(pcap_files, node)
+        espcap_file.capture(pcap_files, node, trace)
 
     # Capture and handle packets off the wire
     else:
-        espcap_live.capture(nic, bpf, node, count)
+        espcap_live.capture(nic, bpf, node, count, trace)
 
 if __name__ == "__main__":
     main()

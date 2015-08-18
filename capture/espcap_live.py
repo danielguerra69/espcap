@@ -1,4 +1,5 @@
 import datetime
+import traceback
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import pyshark
@@ -39,7 +40,7 @@ def dump_packets(capture, sniff_date_utc, count): # count == 0 means no limit
         pkt_no += 1
 
 # Main capture function
-def capture(nic, bpf, node, count):
+def capture(nic, bpf, node, count, trace):
     try:
         es = None
         if (node != None):
@@ -55,7 +56,9 @@ def capture(nic, bpf, node, count):
         if node == None:
             dump_packets(capture, sniff_date_utc, count)
         else:
-            helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=2000, raise_on_error=True)
+            helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=100, raise_on_error=True)
 
     except Exception as e:
         print "error: ", e
+        if trace == True:
+            traceback.print_exc(file=sys.stdout)

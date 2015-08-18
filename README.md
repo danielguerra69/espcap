@@ -55,9 +55,9 @@ packet_query.sh node
 You run espcap.py as root. If you supply the <tt>--help</tt> flags on the command 
 line you'll get the information on the most useful ways to run espcap.py:
 <pre>
-espcap.py [--dir=input_directory] [--node=elasticsearch_host]
-          [--file=input_file] [--node=elasticsearch_host]
-          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets]
+espcap.py [--dir=input_directory] [--node=elasticsearch_host] [--trace]
+          [--file=input_file] [--node=elasticsearch_host] [--trace]
+          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets] [--trace]
           [--help]
           [--list-interfaces]
 
@@ -77,6 +77,9 @@ espcap.py --dir=./test_pcaps
 </pre>
 When running in live capture mode you can set a maximum packet count after which the 
 capture will stop or you can just hit ctrl-c to stop a continuous capture session.
+
+If you want to get more information when exceptions are raised you can supply the <tt>--trace</tt>
+flag for either file or live capture modes.
 
 ## Packet Indexing
 
