@@ -35,9 +35,9 @@ def get_layers(packet):
         elif packet.layers[i].layer_name == "ip":
             layers["network"] = packet.layers[i]._all_fields
 
-        elif packet.layers[i].layer_name == "tcp" or packet.layers[i].layer_name == "udp":
+        elif packet.layers[i].layer_name == "tcp" or packet.layers[i].layer_name == "udp" or packet.layers[i].layer_name == "icmp" or packet.layers[i].layer_name == "esp":
             layers["transport"] = packet.layers[i]._all_fields
-            if highest_protocol == "tcp" or highest_protocol == "udp":
+            if highest_protocol == "tcp" or highest_protocol == "udp" or highest_protocol == "icmp" or highest_protocol == "esp":
                 return highest_protocol, layers
             layer_above_transport = i+1
             break
