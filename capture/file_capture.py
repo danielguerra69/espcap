@@ -5,7 +5,7 @@ import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import pyshark
-from espcap_utils import get_layers
+from packet_layers import get_layers
 
 # Index packets in Elasticsearch
 def index_packets(capture, pcap_file, file_date_utc):
@@ -56,13 +56,13 @@ def capture(pcap_files, node, trace):
             print pcap_file
             stats = os.stat(pcap_file)
             file_date_utc = datetime.datetime.utcfromtimestamp(stats.st_ctime)
-#            capture = pyshark.FileCapture(pcap_file)
+            capture = pyshark.FileCapture(pcap_file)
 
             # If no Elasticsearch node specified, dump to stdout
-#            if node == None:
-#                dump_packets(capture, file_date_utc)
-#            else:
-#                helpers.bulk(es, index_packets(capture, pcap_file, file_date_utc), chunk_size=100, raise_on_error=True)
+            if node == None:
+                dump_packets(capture, file_date_utc)
+            else:
+                helpers.bulk(es, index_packets(capture, pcap_file, file_date_utc), chunk_size=5000, raise_on_error=True)
 
     except Exception as e:
         print "error: ", e

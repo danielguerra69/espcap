@@ -5,8 +5,8 @@ import sys
 import getopt
 import signal
 
-from capture import espcap_file, espcap_live
-import espcap_utils
+from capture import file_capture, live_capture
+from utils import list_interfaces
 
 
 def command_line_options():
@@ -93,7 +93,7 @@ def main():
         elif opt == "--trace":
             trace = True
         elif opt == "--list-interfaces":
-            espcap_utils.list_interfaces()
+            list_interfaces()
             sys.exit()
         else:
             doh("Unhandled option "+opt)
@@ -101,9 +101,6 @@ def main():
     # Bail if no nic or input file has been specified
     if nic == None and pcap_dir == None and pcap_file == None:
         fine_print()
-
-    # Load supported protocols
-    espcap_utils.load_config()
 
     # Enables interrupting of continuous live capture
     signal.signal(signal.SIGINT, interrupt_handler)
@@ -114,16 +111,16 @@ def main():
         files.sort()
         for file in files:
             pcap_files.append(pcap_dir+file)
-        espcap_file.capture(pcap_files, node, trace)
+        file_capture.capture(pcap_files, node, trace)
 
     # Handle only the given pcap file
     elif pcap_file != None:
         pcap_files.append(pcap_file)
-        espcap_file.capture(pcap_files, node, trace)
+        file_capture.capture(pcap_files, node, trace)
 
     # Capture and handle packets off the wire
     else:
-        espcap_live.capture(nic, bpf, node, count, trace)
+        live_capture.capture(nic, bpf, node, count, trace)
 
 if __name__ == "__main__":
     main()
