@@ -28,26 +28,24 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 <pre>
 pip install pyshark
 pip install elasticsearch
-</pre>
+</pre></li>
 <li>Create the packet index template by running conf/templates.sh as follows 
 specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
 cluster:
 <pre>
 conf/templates.sh node
-</pre>
-</li>
+</pre></li>
 <li>Set the tshark_path variable in the pyshark/config.ini file.</li>
-<li>Run espcap.py as follows to index some packet data in Elasticsearch:
+<li>Run espcap.py as follows to index some packet data in Elasticsearch
 <pre>
 espcap.py --dir=test_pcaps --node=node
-</pre>
+</pre></li>
 <li>Set the tshark_path variable in the pyshark/config.ini file.</li>
 <li>Run the packet_query.sh as follows to check that the packet data resides in your
 Elasticsearch cluster:
 <pre>
 packet_query.sh node
-</pre>
-</li>
+</pre></li>
 </ol>
 
 ## Getting Started
@@ -317,16 +315,14 @@ generate a fresh list, you can run the protocols.sh script in the following mann
 ## Known Issues
 
 <ol>
-<li>
-File capture mode sometime gets this error when dumping packets to stdout:  
+<li>File capture mode sometime gets this error when dumping packets to stdout:  
 <pre>'NoneType' object has no attribute 'add_reader'.</pre>
-This appears to be related to displaying packets.
-</li>
+This appears to be related to displaying packets.</li>
 <li>When uploading packet data through the Nginx proxy you may get a <tt>413 Request Entity Too Large</tt> error. This is caused by sending too many packets at each Elasticsearch bulk load call. You can either set the <i>chunk_size</i> in the call to <i>helpers.bulk()</i> in the espcap_file.py and espcap_live.py code or increase the request entity size that Nginx will accept or both. To set a larger Nginx request entity limit add this line to the http or server or location sections of your Nginx configuration file: 
 <pre>
 client_max_body_size 2M;
-</pre>
-Set the value to your desired maximum entity (body) size then restart Nginx with this command:
+</pre></li>
+<li>Set the value to your desired maximum entity (body) size then restart Nginx with this command:
 <pre>
 /usr/local/nginx/sbin/nginx -s reload
-</pre>
+</pre></li>
