@@ -322,8 +322,8 @@ generate a fresh list, you can run the protocols.sh script in the following mann
 <li>When uploading packet data through the Nginx proxy you may get a <tt>413 Request Entity Too Large</tt> error. This is caused by sending too many packets at each Elasticsearch bulk load call. You can either set the <i>chunk_size</i> in the call to <i>helpers.bulk()</i> in the espcap_file.py and espcap_live.py code or increase the request entity size that Nginx will accept or both. To set a larger Nginx request entity limit add this line to the http or server or location sections of your Nginx configuration file: 
 <pre>
 client_max_body_size 2M;
-</pre></li>
-<li>Set the value to your desired maximum entity (body) size then restart Nginx with this command:
+</pre>
+Set the value to your desired maximum entity (body) size then restart Nginx with this command:
 <pre>
 /usr/local/nginx/sbin/nginx -s reload
 </pre></li>
