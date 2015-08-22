@@ -7,11 +7,9 @@ to parse any protocol.
 
 ## Requirements
 
-<ol>
-<li>tshark (included in Wireshark)</li>
-<li>pyshark</li>
-<li>Elasticsearch client for Python</li>
-</ol>
+1. tshark (included in Wireshark)
+2. pyshark
+3. Elasticsearch client for Python
  
 ## Recommendations
 
@@ -22,33 +20,21 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 
 ## Installation
 
-<ol>
-<li>Install Wireshark for your OS.</li>
-<li>Install pyshark and the Elasticsearch client for Python with pip:
-<pre>
-pip install pyshark
-pip install elasticsearch
-</pre>
-<li>Create the packet index template by running conf/templates.sh as follows 
+1. Install Wireshark for your OS.
+2. Install pyshark and the Elasticsearch client for Python with pip:
+<pre>pip install pyshark`
+pip install elasticsearch</pre>
+3. Create the packet index template by running conf/templates.sh as follows 
 specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
 cluster:
-<pre>
-conf/templates.sh node
-</pre>
-</li>
-<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
-<li>Run espcap.py as follows to index some packet data in Elasticsearch:
-<pre>
-espcap.py --dir=test_pcaps --node=node
-</pre>
-<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
-<li>Run the packet_query.sh as follows to check that the packet data resides in your
+<pre>conf/templates.sh node</pre>
+4. Set the tshark_path variable in the pyshark/config.ini file.
+5. Run espcap.py as follows to index some packet data in Elasticsearch
+<pre>espcap.py --dir=test_pcaps --node=node</pre>
+6. Set the tshark_path variable in the pyshark/config.ini file.
+7. Run the packet_query.sh as follows to check that the packet data resides in your
 Elasticsearch cluster:
-<pre>
-packet_query.sh node
-</pre>
-</li>
-</ol>
+<pre>packet_query.sh node</pre>
 
 ## Getting Started
 
@@ -112,12 +98,10 @@ The <i>pcap_live</i> type is comprised of the same fields except the <i>file_nam
 
 Packet layers are mapped in four basic sections based in protocol type within each index:
 
-<ol>
-<li>Link - link to the physical network media, usually Ethernet (eth).</li>
-<li>Network - network routing layer which is always IP (ip).</li>
-<li>Transport - transport layer which is either TCP (tcp) or UDP (udp).</li>
-<li>Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.</li>
-</ol>
+1. Link - link to the physical network media, usually Ethernet (eth).
+2. Network - network routing layer which is always IP (ip).
+3. Transport - transport layer which is either TCP (tcp) or UDP (udp).
+4. Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.
 
 Packet layers reside in a JSON section called <i>layers</i>. Each of the four layers reside
 in a JSON section of the same name.  The packet field names include the protocol of the given
@@ -307,26 +291,17 @@ this fashion.
 
 On the other hand If you get a little too frisky and comment out too many protocols or you just want to 
 generate a fresh list, you can run the protocols.sh script in the following manner:
-<ol>
-<li>cd to the conf directory</li>
-<li>Run the protocols.sh script which produces a clean protocol list in protocols.txt</li>
-<li>Comment out the protocols in the list above and others you don't want to consider</li>
-<li>Replace the contents of protocols.list with the contents of protocols.txt.
-</ol>
+
+1. cd to the conf directory
+2. Run the protocols.sh script which produces a clean protocol list in protocols.txt
+3. Comment out the protocols in the list above and others you don't want to consider
+4. Replace the contents of protocols.list with the contents of protocols.txt.
 
 ## Known Issues
 
-<ol>
-<li>
-File capture mode sometime gets this error when dumping packets to stdout:  
+1. File capture mode sometime gets this error when dumping packets to stdout:
 <pre>'NoneType' object has no attribute 'add_reader'.</pre>
-This appears to be related to displaying packets.
-</li>
-<li>When uploading packet data through the Nginx proxy you may get a <tt>413 Request Entity Too Large</tt> error. This is caused by sending too many packets at each Elasticsearch bulk load call. You can either set the <i>chunk_size</i> in the call to <i>helpers.bulk()</i> in the espcap_file.py and espcap_live.py code or increase the request entity size that Nginx will accept or both. To set a larger Nginx request entity limit add this line to the http or server or location sections of your Nginx configuration file: 
-<pre>
-client_max_body_size 2M;
-</pre>
+2. When uploading packet data through the Nginx proxy you may get a <tt>413 Request Entity Too Large</tt> error. This is caused by sending too many packets at each Elasticsearch bulk load call. You can either set the <i>chunk_size</i> in the call to <i>helpers.bulk()</i> in the espcap_file.py and espcap_live.py code or increase the request entity size that Nginx will accept or both. To set a larger Nginx request entity limit add this line to the http or server or location sections of your Nginx configuration file: 
+<pre>client_max_body_size 2M;</pre>
 Set the value to your desired maximum entity (body) size then restart Nginx with this command:
-<pre>
-/usr/local/nginx/sbin/nginx -s reload
-</pre>
+<pre>/usr/local/nginx/sbin/nginx -s reload</pre>
