@@ -41,9 +41,9 @@ Elasticsearch cluster:
 You run espcap.py as root. If you supply the <tt>--help</tt> flags on the command 
 line you'll get the information on the most useful ways to run espcap.py:
 <pre>
-espcap.py [--dir=input_directory] [--node=elasticsearch_host] [--trace]
-          [--file=input_file] [--node=elasticsearch_host] [--trace]
-          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets] [--trace]
+espcap.py [--dir=pcap_directory] [--node=elasticsearch_host] [--chunk=chunk_size] [--trace]
+          [--file=pcap_file] [--node=elasticsearch_host] [--chunk=chunk_size] [--trace]
+          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--chunk=chunk_size] [--count=max_packets] [--trace]
           [--help]
           [--list-interfaces]
 
@@ -62,7 +62,13 @@ that run espcap.py as follows (assuming you want to just dump the packets to std
 espcap.py --dir=./test_pcaps
 </pre>
 When running in live capture mode you can set a maximum packet count after which the 
-capture will stop or you can just hit ctrl-c to stop a continuous capture session.
+capture will stop or you can just hit ctrl-c to stop a continuous capture session. 
+
+Espcap uses Elasticsearch bulk insertion of packets. The <tt>--chunk<tt> enables you to set 
+how many packets are sent Elasticsearch for each insertion. The default is chunk size is 100,
+but higher values (1000 - 2000) are usually better. If you get transport I/O exceptions due
+to network latency or an Elasticsearch backend that is not optimally configured, stick with
+the default chunk size.
 
 If you want to get more information when exceptions are raised you can supply the <tt>--trace</tt>
 flag for either file or live capture modes.
