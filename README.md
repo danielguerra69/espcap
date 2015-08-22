@@ -49,9 +49,9 @@ espcap.py [--dir=pcap_directory] [--node=elasticsearch_host] [--chunk=chunk_size
 
 Example command line option combinations:
 espcap.py --d=/home/pcap_direcory --node=localhost:9200
-espcap.py --file=./pcap_file --node=localhost:9200
-espcap.py --nic=eth0 --node=localhost:9200 --bpf="tcp port 80"
-espcap.py --nic=en0 --node=localhost:9200 --bpf="udp port 53" --count=100
+espcap.py --file=./pcap_file --node=localhost:9200 --chunk=1000
+espcap.py --nic=eth0 --node=localhost:9200 --bpf="tcp port 80" --chunk=2000
+espcap.py --nic=en0 --node=localhost:9200 --bpf="udp port 53" --count=500
 </pre>
 Note that each of these modes is mutually exclusive. If you try to run espcap.py in more 
 than one mode you'll get an error message.
@@ -64,7 +64,7 @@ espcap.py --dir=./test_pcaps
 When running in live capture mode you can set a maximum packet count after which the 
 capture will stop or you can just hit ctrl-c to stop a continuous capture session. 
 
-Espcap uses Elasticsearch bulk insertion of packets. The <tt>--chunk<tt> enables you to set 
+Espcap uses Elasticsearch bulk insertion of packets. The <tt>--chunk</tt> enables you to set 
 how many packets are sent Elasticsearch for each insertion. The default is chunk size is 100,
 but higher values (1000 - 2000) are usually better. If you get transport I/O exceptions due
 to network latency or an Elasticsearch backend that is not optimally configured, stick with
