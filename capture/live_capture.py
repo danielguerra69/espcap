@@ -40,7 +40,7 @@ def dump_packets(capture, sniff_date_utc, count): # count == 0 means no limit
         pkt_no += 1
 
 # Main capture function
-def capture(nic, bpf, node, count, trace):
+def capture(nic, bpf, node, chunk, count, trace):
     try:
         es = None
         if (node != None):
@@ -56,7 +56,7 @@ def capture(nic, bpf, node, count, trace):
         if node == None:
             dump_packets(capture, sniff_date_utc, count)
         else:
-            helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=2000, raise_on_error=True)
+            helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=chunk, raise_on_error=True)
 
     except Exception as e:
         print "error: ", e

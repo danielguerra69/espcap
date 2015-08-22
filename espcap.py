@@ -10,9 +10,9 @@ from utils import list_interfaces
 
 
 def command_line_options():
-    print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host] [--trace]"
-    print "          [--file=pcap_file] [--node=elasticsearch_host] [--trace]"
-    print "          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--count=max_packets] [--trace]"
+    print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host] [--chunk=chunk_size] [--trace]"
+    print "          [--file=pcap_file] [--node=elasticsearch_host] [--chunk=chunk_size] [--trace]"
+    print "          [--nic=interface] [--node=elasticsearch_host] [--bpf=packet_filter_string] [--chunk=chunk_size] [--count=max_packets] [--trace]"
     print "          [--help]"
     print "          [--list-interfaces]"
 
@@ -21,9 +21,9 @@ def example_usage():
     print
     print "Example command line option combinations:"
     print "espcap.py --d=/home/pcap_directory --node=localhost:9200"
-    print "espcap.py --file=./pcap_file --node=localhost:9200"
-    print "espcap.py --nic=eth0 --node=localhost:9200 --bpf=\"tcp port 80\""
-    print "espcap.py --nic=en0 --node=localhost:9200 --bpf=\"udp port 53\" --count=100"
+    print "espcap.py --file=./pcap_file --node=localhost:9200 --chunk=1000"
+    print "espcap.py --nic=eth0 --node=localhost:9200 --bpf=\"tcp port 80\" --chunk=2000"
+    print "espcap.py --nic=en0 --node=localhost:9200 --bpf=\"udp port 53\" --count=500"
     sys.exit()
 
 def usage():
@@ -52,7 +52,7 @@ def main():
     if len(sys.argv) == 1:
         usage()
     try:
-        opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["trace","dir=","file=","nic=","node=","bpf=","count=","help","list-interfaces"])
+        opts,args = getopt.gnu_getopt(sys.argv[1:], "", ["trace","dir=","file=","nic=","node=","bpf=","chunk=","count=","help","list-interfaces"])
     except getopt.GetoptError as error:
         print str(error)
         usage()
@@ -66,6 +66,7 @@ def main():
     bpf = None
     trace = False
     count = 0
+    chunk = 100
     for opt, arg in opts:
         if opt == "--help":
             example_usage()
@@ -88,6 +89,8 @@ def main():
             node = arg
         elif opt == "--bpf":
             bpf = arg
+        elif opt == "--chunk":
+            chunk = int(arg)
         elif opt == "--count":
             count = int(arg)
         elif opt == "--trace":
@@ -111,16 +114,16 @@ def main():
         files.sort()
         for file in files:
             pcap_files.append(pcap_dir+file)
-        file_capture.capture(pcap_files, node, trace)
+        file_capture.capture(pcap_files, node, chunk, trace)
 
     # Handle only the given pcap file
     elif pcap_file != None:
         pcap_files.append(pcap_file)
-        file_capture.capture(pcap_files, node, trace)
+        file_capture.capture(pcap_files, node, chunk, trace)
 
     # Capture and handle packets off the wire
     else:
-        live_capture.capture(nic, bpf, node, count, trace)
+        live_capture.capture(nic, bpf, node, chunk, count, trace)
 
 if __name__ == "__main__":
     main()
