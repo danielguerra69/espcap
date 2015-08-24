@@ -270,7 +270,7 @@ associated with their protocol sections by checking the <i>envelope</i> field co
 
 ## Protocol Support
 
-Technically epscap recognizes all the protocols supported by wureshark/tshark. However, the wireshark
+Technically epscap recognizes all the protocols supported by wireshark/tshark. However, the wireshark
 dissector set includes some strange protocols that are not really Internet protocols in the strictest
 sense, but are rather parts of other protocols. One example is <i>media</i> which is actually used to
 label an additional layer for the <i>http</i> protocol among other things. Espcap uses the protocols.list
