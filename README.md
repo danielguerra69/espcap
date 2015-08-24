@@ -22,7 +22,7 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 
 1. Install Wireshark for your OS.
 2. Install pyshark and the Elasticsearch client for Python with pip:
-<pre>pip install pyshark`
+<pre>pip install pyshark
 pip install elasticsearch</pre>
 3. Create the packet index template by running conf/templates.sh as follows 
 specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
