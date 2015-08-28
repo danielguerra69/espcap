@@ -1,5 +1,6 @@
 import sys
 import traceback
+from datetime import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import pyshark
@@ -46,7 +47,7 @@ def capture(nic, bpf, node, chunk, count, trace):
         if (node != None):
             es = Elasticsearch(node)
 
-        sniff_date_utc = datetime.datetime.utcnow()
+        sniff_date_utc = datetime.utcnow()
         if bpf == None:
             capture = pyshark.LiveCapture(interface=nic)
         else:
