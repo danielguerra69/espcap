@@ -113,7 +113,10 @@ def main():
         files = os.listdir(pcap_dir)
         files.sort()
         for file in files:
-            pcap_files.append(pcap_dir+"/"+file)
+            if pcap_dir.find("/") > 0:
+                pcap_files.append(pcap_dir+file)
+            else:
+                pcap_files.append(pcap_dir+"/"+file)
         file_capture.capture(pcap_files, node, chunk, trace)
 
     # Handle only the given pcap file
