@@ -87,6 +87,7 @@ before indexing an packet data.
 Index IDs are automatically assigned by Elasticsearch
 
 ### pcap_file type fields
+
 <pre>
 file_name          Name of the pcap file from whence the packets were read
 file_date_utc      Creation date UTC when the pcap file was created
@@ -95,6 +96,7 @@ sniff_timestamp    Time in milliseconds after the Epoch whne the packet was read
 protocol           The highest level protocol
 layers             Dictionary containing the packet contents
 </pre>
+
 ### pcap_live type fields
 
 The <i>pcap_live</i> type is comprised of the same fields except the <i>file_name</i> and
