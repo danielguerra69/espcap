@@ -73,7 +73,6 @@ the default chunk size.
 If you want to get more information when exceptions are raised you can supply the <tt>--trace</tt>
 flag for either file or live capture modes.
 
-
 ## Packet Indexing
 
 When indexing packet captures into Elasticsearch, an new index is created for each 
@@ -86,7 +85,6 @@ types which are mapped as Elasticsearch date fields if you run the templates.sh 
 before indexing an packet data.
 
 Index IDs are automatically assigned by Elasticsearch
-
 
 ### pcap_file type fields
 
