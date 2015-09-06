@@ -79,14 +79,14 @@ When indexing packet captures into Elasticsearch, an new index is created for ea
 day. The index naming format is <i>packets-yyyy-mm-dd</i>. The date is UTC derived from 
 the packet sniff timestamp obtained from pyshark either for live captures or the
 sniff timestamp read from pcap files. Each index has two types, one for live capture 
-<i>pcap_live</i> and file capture <i>pcap_file</i>. Both types are dynamically mapped by
-Elasticsearch with exception of the date fields for either <i>pcap_file</i> or <i>pcap_live</i>
+<tt>pcap_live</tt> and file capture <tt>pcap_file</tt>. Both types are dynamically mapped by
+Elasticsearch with exception of the date fields for either <tt>pcap_file</tt> or <tt>pcap_live</tt>
 types which are mapped as Elasticsearch date fields if you run the templates.sh script
 before indexing an packet data.
 
 Index IDs are automatically assigned by Elasticsearch
 
-### pcap_file type fields
+<h3>pcap_file type fields</h3>
 
 <pre>
 file_name          Name of the pcap file from whence the packets were read
@@ -97,7 +97,7 @@ protocol           The highest level protocol
 layers             Dictionary containing the packet contents
 </pre>
 
-### pcap_live type fields
+<h3>pcap_live type fields</h3>
 
 The <i>pcap_live</i> type is comprised of the same fields except the <i>file_name</i> and
 <i>file_date_utc</i> fields.
@@ -111,7 +111,7 @@ Packet layers are mapped in four basic sections based in protocol type within ea
 3. Transport - transport layer which is either TCP (tcp) or UDP (udp).
 4. Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.
 
-Packet layers reside in a JSON section called <i>layers</i>. Each of the four layers reside
+Packet layers reside in a JSON section called <tt>layers</tt>. Each of the four layers reside
 in a JSON section of the same name.  The packet field names include the protocol of the given
 layer.  Below is an example of an HTTP packet that has been truncated in the places denoted by
 <tt><-- SNIP --></tt>. 
@@ -266,16 +266,16 @@ layers.transport.tcp.dstport     Receiver TCP port
 layers.application.http.chat     HTTP response
 </pre>
 
-Note that some layer protocols span two sections. In the above example, the TCP segment has a <i>data</i> 
-section associated and the HTTP response has a <i>media</i> section. Extra sections like these can be 
-associated with their protocol sections by checking the <i>envelope</i> field contents.
+Note that some layer protocols span two sections. In the above example, the TCP segment has a <tt>data</tt> 
+section associated and the HTTP response has a <tt>media</tt> section. Extra sections like these can be 
+associated with their protocol sections by checking the <tt>envelope</tt> field contents.
 
 ## Protocol Support
 
 Technically epscap recognizes all the protocols supported by wireshark/tshark. However, the wireshark
 dissector set includes some strange protocols that are not really Internet protocols in the strictest
-sense, but are rather parts of other protocols. One example is <i>media</i> which is actually used to
-label an additional layer for the <i>http</i> protocol among other things. Espcap uses the protocols.list
+sense, but are rather parts of other protocols. One example is <tt>media</tt> which is actually used to
+label an additional layer for the <tt>http</tt> protocol among other things. Espcap uses the protocols.list
 to help determine the application level protocol in any given packet. This file is derived from tshark
 by running the protocols.sh script in the conf directory. To ensure that espcap has only true Internet
 protocols to choose from, the entries in protocols.list that are not truly Internet protocols have
@@ -300,7 +300,7 @@ this fashion.
 On the other hand If you get a little too frisky and comment out too many protocols or you just want to 
 generate a fresh list, you can run the protocols.sh script in the following manner:
 
-1. cd to the conf directory
+1. cd to the conf/ directory
 2. Run the protocols.sh script which produces a clean protocol list in protocols.txt
 3. Comment out the protocols in the list above and others you don't want to consider
 4. Replace the contents of protocols.list with the contents of protocols.txt.
