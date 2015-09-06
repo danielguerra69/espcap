@@ -35,7 +35,7 @@ cluster:
 <li>Run the packet_query.sh as follows to check that the packet data resides in your
 Elasticsearch cluster:
 <pre>packet_query.sh node</pre></li>
-
+</ol>
 <h2>Getting Started</h2>
 
 You run espcap.py as root. If you supply the <tt>--help</tt> flags on the command 
@@ -110,7 +110,7 @@ Packet layers are mapped in four basic sections based in protocol type within ea
 <li>Network - network routing layer which is always IP (ip).</li>
 <li>Transport - transport layer which is either TCP (tcp) or UDP (udp).</li>
 <li>Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.</li>
-
+</ol>
 Packet layers reside in a JSON section called <tt>layers</tt>. Each of the four layers reside
 in a JSON section of the same name.  The packet field names include the protocol of the given
 layer.  Below is an example of an HTTP packet that has been truncated in the places denoted by
