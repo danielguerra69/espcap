@@ -4,10 +4,8 @@ import os
 import sys
 import getopt
 import signal
-
 from capture import file_capture, live_capture
 from utils import list_interfaces
-
 
 def command_line_options():
     print "espcap.py [--dir=pcap_directory] [--node=elasticsearch_host] [--chunk=chunk_size] [--trace]"
