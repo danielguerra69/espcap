@@ -1,42 +1,42 @@
-# espcap
+<h1>espcap</h1>
 
 espcap is a program that uses pyshark to capture packets from a pcap file or live
 from a network interface and index them with Elasticsearch.  Since espcap uses
 pyshark - which provides a wrapper API to tshark - it can use wireshark dissectors
 to parse any protocol.
 
-## Requirements
-
-1. tshark (included in Wireshark)
-2. pyshark
-3. Elasticsearch client for Python
- 
-## Recommendations
+<h2>Requirements</h2>
+<ol>
+<li>tshark (included in Wireshark)</li>
+<li>pyshark</li>
+<li>Elasticsearch client for Python</li>
+</ol> 
+<h2>Recommendations</h2>
 
 It is highly recommended, although not required, that you use the Anaconda Python 
 distribution by Continuum Analytics for espcap. This distribution contains Python
 2.7.10 and bundles a rich set of programming packages for analytics and machine 
 learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 
-## Installation
-
-1. Install Wireshark for your OS.
-2. Install pyshark and the Elasticsearch client for Python with pip:
+<h2>Installation</h2>
+<ol>
+<li>Install Wireshark for your OS.</li>
+<li>Install pyshark and the Elasticsearch client for Python with pip:
 <pre>pip install pyshark
-pip install elasticsearch</pre>
-3. Create the packet index template by running conf/templates.sh as follows 
+pip install elasticsearch</pre></li>
+<li>Create the packet index template by running conf/templates.sh as follows 
 specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
 cluster:
-<pre>conf/templates.sh node</pre>
-4. Set the tshark_path variable in the pyshark/config.ini file.
-5. Run espcap.py as follows to index some packet data in Elasticsearch
-<pre>espcap.py --dir=test_pcaps --node=node</pre>
-6. Set the tshark_path variable in the pyshark/config.ini file.
-7. Run the packet_query.sh as follows to check that the packet data resides in your
+<pre>conf/templates.sh node</pre></li>
+<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
+<li>Run espcap.py as follows to index some packet data in Elasticsearch
+<pre>espcap.py --dir=test_pcaps --node=node</pre></li>
+<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
+<li>Run the packet_query.sh as follows to check that the packet data resides in your
 Elasticsearch cluster:
-<pre>packet_query.sh node</pre>
-
-## Getting Started
+<pre>packet_query.sh node</pre></li>
+</ol>
+<h2>Getting Started</h2>
 
 You run espcap.py as root. If you supply the <tt>--help</tt> flags on the command 
 line you'll get the information on the most useful ways to run espcap.py:
@@ -73,20 +73,21 @@ the default chunk size.
 If you want to get more information when exceptions are raised you can supply the <tt>--trace</tt>
 flag for either file or live capture modes.
 
-## Packet Indexing
+<h2>Packet Indexing</h2>
 
 When indexing packet captures into Elasticsearch, an new index is created for each 
 day. The index naming format is <i>packets-yyyy-mm-dd</i>. The date is UTC derived from 
 the packet sniff timestamp obtained from pyshark either for live captures or the
 sniff timestamp read from pcap files. Each index has two types, one for live capture 
-<i>pcap_live</i> and file capture <i>pcap_file</i>. Both types are dynamically mapped by
-Elasticsearch with exception of the date fields for either <i>pcap_file</i> or <i>pcap_live</i>
+<tt>pcap_live</tt> and file capture <tt>pcap_file</tt>. Both types are dynamically mapped by
+Elasticsearch with exception of the date fields for either <tt>pcap_file</tt> or <tt>pcap_live</tt>
 types which are mapped as Elasticsearch date fields if you run the templates.sh script
 before indexing an packet data.
 
 Index IDs are automatically assigned by Elasticsearch
 
-### pcap_file type fields
+<h3>pcap_file type fields</h3>
+
 <pre>
 file_name          Name of the pcap file from whence the packets were read
 file_date_utc      Creation date UTC when the pcap file was created
@@ -95,21 +96,22 @@ sniff_timestamp    Time in milliseconds after the Epoch whne the packet was read
 protocol           The highest level protocol
 layers             Dictionary containing the packet contents
 </pre>
-### pcap_live type fields
 
-The <i>pcap_live</i> type is comprised of the same fields except the <i>file_name</i> and
+<h3>pcap_live type fields</h3>
+
+The <tt>pcap_live</tt> type is comprised of the same fields except the <i>file_name</i> and
 <i>file_date_utc</i> fields.
 
-## Packet Layer Structure
+<h2>Packet Layer Structure</h2>
 
 Packet layers are mapped in four basic sections based in protocol type within each index:
-
-1. Link - link to the physical network media, usually Ethernet (eth).
-2. Network - network routing layer which is always IP (ip).
-3. Transport - transport layer which is either TCP (tcp) or UDP (udp).
-4. Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.
-
-Packet layers reside in a JSON section called <i>layers</i>. Each of the four layers reside
+<ol>
+<li>Link - link to the physical network media, usually Ethernet (eth).</li>
+<li>Network - network routing layer which is always IP (ip).</li>
+<li>Transport - transport layer which is either TCP (tcp) or UDP (udp).</li>
+<li>Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.</li>
+</ol>
+Packet layers reside in a JSON section called <tt>layers</tt>. Each of the four layers reside
 in a JSON section of the same name.  The packet field names include the protocol of the given
 layer.  Below is an example of an HTTP packet that has been truncated in the places denoted by
 <tt><-- SNIP --></tt>. 
@@ -253,8 +255,7 @@ The convention for accessing protocol fields in the JSON layers structure is:
 layers.protocol-type.field-name
 </pre>
 
-Here are some examples of how to reference specific layer fields taken from the packet
-JSON shown above:
+Here are some examples of how to reference specific layer fields taken from the packet JSON shown above:
 
 <pre>
 layers.network.ip.src            Sender IP address
@@ -264,16 +265,16 @@ layers.transport.tcp.dstport     Receiver TCP port
 layers.application.http.chat     HTTP response
 </pre>
 
-Note that some layer protocols span two sections. In the above example, the TCP segment has a <i>data</i> 
-section associated and the HTTP response has a <i>media</i> section. Extra sections like these can be 
-associated with their protocol sections by checking the <i>envelope</i> field contents.
+Note that some layer protocols span two sections. In the above example, the TCP segment has a <tt>data</tt> 
+section associated and the HTTP response has a <tt>media</tt> section. Extra sections like these can be 
+associated with their protocol sections by checking the <tt>envelope</tt> field contents.
 
-## Protocol Support
+<h2>Protocol Support</h3>
 
 Technically epscap recognizes all the protocols supported by wireshark/tshark. However, the wireshark
 dissector set includes some strange protocols that are not really Internet protocols in the strictest
-sense, but are rather parts of other protocols. One example is <i>media</i> which is actually used to
-label an additional layer for the <i>http</i> protocol among other things. Espcap uses the protocols.list
+sense, but are rather parts of other protocols. One example is <tt>media</tt> which is actually used to
+label an additional layer for the <tt>http</tt> protocol among other things. Espcap uses the protocols.list
 to help determine the application level protocol in any given packet. This file is derived from tshark
 by running the protocols.sh script in the conf directory. To ensure that espcap has only true Internet
 protocols to choose from, the entries in protocols.list that are not truly Internet protocols have
@@ -297,17 +298,18 @@ this fashion.
 
 On the other hand If you get a little too frisky and comment out too many protocols or you just want to 
 generate a fresh list, you can run the protocols.sh script in the following manner:
-
-1. cd to the conf directory
-2. Run the protocols.sh script which produces a clean protocol list in protocols.txt
-3. Comment out the protocols in the list above and others you don't want to consider
-4. Replace the contents of protocols.list with the contents of protocols.txt.
-
-## Known Issues
-
-1. File capture mode sometime gets this error when dumping packets to stdout:
-<pre>'NoneType' object has no attribute 'add_reader'.</pre>
-2. When uploading packet data through the Nginx proxy you may get a <tt>413 Request Entity Too Large</tt> error. This is caused by sending too many packets at each Elasticsearch bulk load call. You can either set the chunk size with the <tt>--chunk</tt> or increase the request entity size that Nginx will accept or both. To set a larger Nginx request entity limit add this line to the http or server or location sections of your Nginx configuration file: 
+<ol>
+<li>cd to the conf/ directory</li>
+<li>Run the protocols.sh script which produces a clean protocol list in protocols.txt.</li>
+<li>Comment out the protocols in the list above and others you don't want to consider.</li>
+<li>Replace the contents of protocols.list with the contents of protocols.txt.</li>
+</ol>
+<h3>Known Issues</h3>
+<ol>
+<li>File capture mode sometime gets this error when dumping packets to stdout:
+<pre>'NoneType' object has no attribute 'add_reader'.</pre></li>
+<li>When uploading packet data through the Nginx proxy you may get a <tt>413 Request Entity Too Large</tt> error. This is caused by sending too many packets at each Elasticsearch bulk load call. You can either set the chunk size with the <tt>--chunk</tt> or increase the request entity size that Nginx will accept or both. To set a larger Nginx request entity limit add this line to the http or server or location sections of your Nginx configuration file: 
 <pre>client_max_body_size     2M;</pre>
 Set the value to your desired maximum entity (body) size then restart Nginx with this command:
-<pre>/usr/local/nginx/sbin/nginx -s reload</pre>
+<pre>/usr/local/nginx/sbin/nginx -s reload</pre></li>
+</ol>
