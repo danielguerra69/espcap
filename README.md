@@ -24,17 +24,16 @@ learning.  You can download Anaconda Python here: http://continuum.io/downloads.
 <li>Install pyshark and the Elasticsearch client for Python with pip:
 <pre>pip install pyshark
 pip install elasticsearch</pre></li>
-<li>Create the packet index template by running conf/templates.sh as follows 
+<li>Create the packet index template by running scripts/templates.sh as follows 
 specifying the node IP address and TCP port (usually 9200) of your Elasticsearch 
-cluster:
-<pre>conf/templates.sh node</pre></li>
+cluster. If your node IP address is 10.0..0.1 the commands would look like this:
+<pre>scripts/templates.sh 10.0.0.1:9200</pre></li>
 <li>Set the tshark_path variable in the pyshark/config.ini file.</li>
 <li>Run espcap.py as follows to index some packet data in Elasticsearch
-<pre>espcap.py --dir=test_pcaps --node=node</pre></li>
-<li>Set the tshark_path variable in the pyshark/config.ini file.</li>
+<pre>espcap.py --dir=test_pcaps --node=10.0.0.1:9200</pre></li>
 <li>Run the packet_query.sh as follows to check that the packet data resides in your
 Elasticsearch cluster:
-<pre>packet_query.sh node</pre></li>
+<pre>scripts/packet_query.sh 10.0.0.1:9200</pre></li>
 </ol>
 <h2>Getting Started</h2>
 
