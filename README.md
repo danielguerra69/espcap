@@ -63,7 +63,7 @@ espcap.py --dir=./test_pcaps
 When running in live capture mode you can set a maximum packet count after which the 
 capture will stop or you can just hit ctrl-c to stop a continuous capture session. 
 
-Espcap uses Elasticsearch bulk insertion of packets. The <tt>--chunk</tt> enables you to set 
+espcap uses Elasticsearch bulk insertion of packets. The <tt>--chunk</tt> enables you to set 
 how many packets are sent Elasticsearch for each insertion. The default is chunk size is 100,
 but higher values (1000 - 2000) are usually better. If you get transport I/O exceptions due
 to network latency or an Elasticsearch backend that is not optimally configured, stick with
@@ -273,7 +273,7 @@ associated with their protocol sections by checking the <tt>envelope</tt> field 
 Technically epscap recognizes all the protocols supported by wireshark/tshark. However, the wireshark
 dissector set includes some strange protocols that are not really Internet protocols in the strictest
 sense, but are rather parts of other protocols. One example is <tt>media</tt> which is actually used to
-label an additional layer for the <tt>http</tt> protocol among other things. Espcap uses the protocols.list
+label an additional layer for the <tt>http</tt> protocol among other things. espcap uses the protocols.list
 to help determine the application level protocol in any given packet. This file is derived from tshark
 by running the protocols.sh script in the conf directory. To ensure that espcap has only true Internet
 protocols to choose from, the entries in protocols.list that are not truly Internet protocols have
