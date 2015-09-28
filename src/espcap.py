@@ -54,7 +54,6 @@ def main():
     except getopt.GetoptError as error:
         print str(error)
         usage()
-        sys.exit(2)
 
     pcap_files = []
     pcap_dir = None

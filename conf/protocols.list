@@ -637,8 +637,8 @@ igmp
 igrp
 ilmi
 ilp
-image-gif
-image-jfif
+# image-gif
+# image-jfif
 imap
 imf
 inap
@@ -1025,7 +1025,7 @@ pn_mrp
 pn_mrrt
 pn_ptcp
 pn_rt
-png
+# png
 pnp
 pnrp
 poc-settings
@@ -1474,7 +1474,7 @@ xcap-error
 xcsl
 xdmcp
 xmcp
-xml
+# xml
 xmpp
 xot
 xtp
@@ -1511,5 +1511,5 @@ zbee_zdp
 zebra
 zep
 ziop
-zip
+# zip
 zrtp

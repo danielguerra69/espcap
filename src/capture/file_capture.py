@@ -62,7 +62,7 @@ def capture(pcap_files, node, chunk, trace):
             if node == None:
                 dump_packets(capture, file_date_utc)
             else:
-                helpers.bulk(es, index_packets(capture, pcap_file, file_date_utc), chunk_size=chunk, raise_on_error=True)
+                helpers.bulk(es, index_packets(capture, pcap_file, file_date_utc), chunk_size=chunk, raise_on_error=False)
 
     except Exception as e:
         print "error: ", e

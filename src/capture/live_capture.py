@@ -57,7 +57,7 @@ def capture(nic, bpf, node, chunk, count, trace):
         if node == None:
             dump_packets(capture, sniff_date_utc, count)
         else:
-            helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=chunk, raise_on_error=True)
+            helpers.bulk(es,index_packets(capture, sniff_date_utc, count), chunk_size=chunk, raise_on_error=False)
 
     except Exception as e:
         print "error: ", e
