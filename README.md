@@ -115,8 +115,7 @@ JSON that has the name of the protocol for that layer. The highest protocol for 
 which is the application protocol if the packet has such a layer, is indicate by the <tt>protocol</tt> 
 field that is at the sam level as the <tt>layers</tt> section.
 
-Below is an example of an HTTP packet that has been truncated in the places denoted by
-<tt><-- SNIP --></tt>. 
+Below is an example of an HTTP packet as indexed in Elasticsearch.
 
 <pre>
 {
