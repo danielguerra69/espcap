@@ -111,10 +111,9 @@ Packet layers are mapped in four basic sections based in protocol type within ea
 <li>Application - high level Internet protocol such as HTTP (http), DNS (dns), etc.</li>
 </ol>
 Packet layers reside in a JSON section called <tt>layers</tt>. Each of the layers reside in a 
-JSON section of the same name. The protocol for each layer is indicated in the <tt>protocol</tt>
-field. The highest protocol for the whole packet, which is the application protocol if the 
-packet has such a layer, is in the <tt>protocol</tt> field that is at the sam level as the
-<tt>layers</tt> section.
+JSON that has the name of the protocol for that layer. The highest protocol for the whole packet, 
+which is the application protocol if the packet has such a layer, is indicate by the <tt>protocol</tt> 
+field that is at the sam level as the <tt>layers</tt> section.
 
 Below is an example of an HTTP packet that has been truncated in the places denoted by
 <tt><-- SNIP --></tt>. 
@@ -123,37 +122,47 @@ Below is an example of an HTTP packet that has been truncated in the places deno
 {
     "_index": "packets-2015-07-30",
     "_type": "pcap_file",
-    "_id": "AVAaWs6WtaVU9i_NA6BD",
+    "_id": "AVAaipoMtaVU9i_NA682",
     "_score": null,
     "_source": {
         "layers": {
-            "application": {
-                "content_length": "292",
-                "_ws_expert": "Expert Info (Chat/Sequence): HTTP/1.1 200 OK\\r\\n",
-                "_ws_expert_severity": "2097152",
-                "protocol": "http",
-                "chat": "HTTP/1.1 200 OK\\r\\n",
-                "response_code": "200",
-                "content_length_header": "292",
-                "server": "Trend Micro 2.5",
-                "response_phrase": "OK",
-                "response_line": "Server: Trend Micro 2.5\\xd\\xa",
-                "connection": "close",
-                "last_modified": "Wed, 29 Jul 2015 20:23:38 GMT",
-                "request_version": "HTTP/1.1",
-                "content_type": "text/html",
-                "time": "0.013877000",
-                "date": "Thu, 30 Jul 2015 05:22:09 GMT",
-                "_ws_expert_group": "33554432",
-                "response": "1",
-                "cache_control": "max-age=54089",
-                "_ws_expert_message": "HTTP/1.1 200 OK\\r\\n",
-                "request_in": "4"
+            "xml": {
+                "xmlpi_encoding": "UTF-8",
+                "attribute": "nonce=\"a234fb85622b87cd9c8626e57250ece56310f2de\"",
+                "envelope": "http",
+                "tag": "<query nonce=\"a234fb85622b87cd9c8626e57250ece56310f2de\">",
+                "cdata": "A new version with bug fix is available! Click to update.",
+                "xmlpi_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+                "xmlpi_version": "1.0"
             },
-            "link": {
+            "ip": {
+                "checksum_bad": "0",
+                "checksum_good": "0",
+                "ttl": "41",
+                "id": "52361",
+                "dsfield": "32",
+                "addr": "83.145.197.2",
+                "proto": "6",
+                "flags_rb": "0",
+                "dst": "10.0.0.4",
+                "version": "4",
+                "flags_mf": "0",
+                "dsfield_dscp": "8",
+                "hdr_len": "20",
+                "len": "1020",
+                "dsfield_ecn": "0",
+                "host": "83.145.197.2",
+                "frag_offset": "0",
+                "src": "83.145.197.2",
+                "checksum": "24251",
+                "flags_df": "1",
+                "dst_host": "10.0.0.4",
+                "flags": "2",
+                "src_host": "83.145.197.2"
+            },
+            "eth": {
                 "dst_resolved": "60:f8:1d:cb:43:84",
                 "lg": "0",
-                "protocol": "eth",
                 "addr": "60:f8:1d:cb:43:84",
                 "src": "58:23:8c:b4:42:56",
                 "addr_resolved": "60:f8:1d:cb:43:84",
@@ -162,83 +171,74 @@ Below is an example of an HTTP packet that has been truncated in the places deno
                 "src_resolved": "58:23:8c:b4:42:56",
                 "ig": "0"
             },
-            "network": {
-                "checksum_bad": "0",
-                "protocol": "ip",
-                "checksum_good": "0",
-                "ttl": "57",
-                "id": "4324",
-                "dsfield": "32",
-                "addr": "184.51.102.81",
-                "proto": "6",
-                "flags_rb": "0",
-                "dst": "10.0.0.4",
-                "version": "4",
-                "flags_mf": "0",
-                "dsfield_dscp": "8",
-                "hdr_len": "20",
-                "len": "566",
-                "dsfield_ecn": "0",
-                "host": "184.51.102.81",
-                "frag_offset": "0",
-                "src": "184.51.102.81",
-                "checksum": "1590",
-                "flags_df": "1",
-                "dst_host": "10.0.0.4",
-                "flags": "2",
-                "src_host": "184.51.102.81"
+            "http": {
+                "content_length": "637",
+                "_ws_expert": "Expert Info (Chat/Sequence): HTTP/1.1 200 OK\\r\\n",
+                "cache_control": "no-store, max-age=0",
+                "response_code": "200",
+                "time": "0.196748000",
+                "server": "Apache",
+                "response_phrase": "OK",
+                "connection": "close",
+                "response_line": "Date: Thu, 30 Jul 2015 05:22:11 GMT\\xd\\xa",
+                "request_version": "HTTP/1.1",
+                "content_encoding": "gzip",
+                "chat": "HTTP/1.1 200 OK\\r\\n",
+                "content_length_header": "637",
+                "date": "Thu, 30 Jul 2015 05:22:11 GMT",
+                "_ws_expert_group": "33554432",
+                "response": "1",
+                "content_type": "application/xml",
+                "request_in": "62",
+                "_ws_expert_message": "HTTP/1.1 200 OK\\r\\n",
+                "_ws_expert_severity": "2097152"
             },
-            "transport": {
+            "tcp": {
                 "flags_cwr": "0",
                 "checksum_bad": "0",
-                "protocol": "tcp",
                 "seq": "1",
                 "flags_ecn": "0",
                 "options_type_class": "0",
                 "flags_syn": "0",
                 "checksum_good": "0",
                 "flags_reset": "0",
-                "window_size_value": "486",
+                "window_size_value": "57",
                 "options_type_copy": "0",
-                "analysis_initial_rtt": "0.014510000",
-                "window_size": "15552",
-                "stream": "0",
+                "analysis_initial_rtt": "0.197580000",
+                "window_size": "7296",
+                "stream": "3",
                 "option_len": "10",
                 "flags_urg": "0",
                 "port": "80",
-                "options_timestamp_tsecr": "387044398",
-                "window_size_scalefactor": "32",
-                "dstport": "59803",
+                "options_timestamp_tsecr": "387046361",
+                "window_size_scalefactor": "128",
+                "dstport": "59807",
                 "hdr_len": "32",
                 "options_type_number": "1",
-                "len": "514",
+                "len": "968",
                 "flags_res": "0",
                 "urgent_pointer": "0",
-                "analysis_bytes_in_flight": "514",
+                "analysis_bytes_in_flight": "968",
                 "flags_push": "1",
                 "flags_ns": "0",
                 "flags_ack": "1",
                 "option_kind": "8",
-                "ack": "285",
-                "checksum": "15193",
+                "ack": "707",
+                "checksum": "41766",
                 "flags_fin": "0",
                 "srcport": "80",
                 "analysis": "SEQ/ACK analysis",
                 "flags": "24",
-                "options_timestamp_tsval": "3019033657",
-                "nxtseq": "515",
-                "options": "01:01:08:0a:b3:f2:cc:39:17:11:d4:2e",
+                "options_timestamp_tsval": "551709239",
+                "nxtseq": "969",
+                "options": "01:01:08:0a:20:e2:6a:37:17:11:db:d9",
                 "options_type": "1"
-            },
-            "data-text-lines": {
-                "envelope": "http",
-                "protocol": "data-text-lines"
             }
         },
         "protocol": "http",
-        "sniff_timestamp": 1438233730.497605,
+        "sniff_timestamp": 1438233732.662099,
         "file_name": "../test_pcaps/test_http.pcap",
-        "sniff_date_utc": "2015-07-30 05:22:10",
+        "sniff_date_utc": "2015-07-30 05:22:12",
         "file_date_utc": "2015-09-23 01:41:26"
     }
 }
@@ -247,24 +247,22 @@ Below is an example of an HTTP packet that has been truncated in the places deno
 The convention for accessing protocol fields in the JSON layers structure is:
 
 <pre>
-layers.layer-name.field-name
+layers.protocol.field
 </pre>
 
 Here are some examples of how to reference specific layer fields taken from the packet JSON shown above:
 
 <pre>
-layers.network.protocol          Network layer protocol (always "ip")
-layers.network.src               Sender IP address
-layers.network.dst               Receiver IP address
-layers.transport.protocol        Transport layer protocol (usually either "tcp" or "udp")
-layers.transport.srcport         Sender transport port
-layers.transport.dstport         Receiver transport port
-layers.application.chat          HTTP response
+layers.ip.src             Sender IP address
+layers.ip.dst             Receiver IP address
+layers.tcp.srcport        Sender TCP port
+layers.udp.dstport        Receiver UDP port
+layers.http.chat          HTTP response
 </pre>
 
-Note that some layer protocols span two sections. In the above example, the TCP segment has a <tt>data</tt> 
-section associated and the HTTP response has a <tt>media</tt> section. Extra sections like these can be 
-associated with their protocol sections by checking the <tt>envelope</tt> field contents.
+Note that some layer protocols span two sections. In the above example, the HTTP layer has an <tt>xml</tt> 
+section associated with it. Extra sections like these can be associated with their protocol sections by 
+checking the <tt>envelope</tt> field contents.
 
 <h2>Protocol Support</h3>
 
